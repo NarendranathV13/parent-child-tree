@@ -7,6 +7,7 @@ const CheckBoxItems = ({
   onClick,
   borderClass,
   onChange,
+  indeterminate
 }) => {
   return (
     <div className={`form-check ${borderClass}`}>
@@ -16,6 +17,11 @@ const CheckBoxItems = ({
         id={id}
         checked={isChecked}
         onChange={onChange}
+        ref={input => {
+          if (input) {
+            input.indeterminate = indeterminate;
+          }
+        }}
       />
       <label
         className="form-check-label tree-text clickable"

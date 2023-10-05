@@ -60,18 +60,21 @@ function TreeView() {
                     }
                 });
                 const allVariantsSelected = model.variants.every((variant) => variant.isChecked);
+                const someVariantsSelected = model.variants.some((variant) => variant.isChecked);
                 model.isChecked = allVariantsSelected;
+                model.isIndeterminate = someVariantsSelected;
 
                 return model;
             });
             const allModelsSelected = brand.models.every((model) => model.isChecked);
+            const someModelsSelected = brand.models.some((model) => model.isChecked);
             brand.isChecked = allModelsSelected;
+            brand.isIndeterminate = someModelsSelected;
 
             return brand;
         });
         setTreeData(updatedTreeData);
     };
-
     return (
         <div className="treeview">
             <div className="container">
@@ -90,6 +93,7 @@ function TreeView() {
                                 label={brand.brand_name}
                                 onClick={() => selectParent(brand)}
                                 borderClass={selectedParent === brand ? " border border-success" : ""}
+                                indeterminate={brand.isIndeterminate}
                             />
                         ))}
                     </div>
@@ -106,6 +110,7 @@ function TreeView() {
                                     label={model.model_name}
                                     onClick={() => selectChild(model)}
                                     borderClass={selectedChild === model ? " border border-success" : ""}
+                                    indeterminate={model.isIndeterminate}
                                 />
                             ))}
                     </div>
@@ -122,6 +127,7 @@ function TreeView() {
                                     label={variant.variant_name}
                                     onClick={() => selectVariant(variant)}
                                     borderClass={selectedVariant === variant ? " border border-success" : ""}
+                                    indeterminate={false} // Variants should not be in an indeterminate state
                                 />
                             ))}
                     </div>
