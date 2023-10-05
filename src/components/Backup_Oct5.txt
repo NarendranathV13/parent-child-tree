@@ -10,7 +10,7 @@ function TreeView() {
         const apiUrl = "/camera";
         GetAxiosData(apiUrl)
             .then((response) => {
-                setTreeData(response.data);
+                setTreeData(response.data); 
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -56,11 +56,11 @@ function TreeView() {
                 });
                 const allVariantsSelected = model.variants.every((variant) => variant.isChecked);
                 model.isChecked = allVariantsSelected;
-
+    
                 return model;
             });
             const allModelsSelected = brand.models.every((model) => model.isChecked);
-            brand.isChecked = allModelsSelected;
+        brand.isChecked = allModelsSelected;
 
             return brand;
         });
@@ -103,7 +103,7 @@ function TreeView() {
 
                     {/* Column 2 */}
                     <div className="col-md  mx-2 p-2 border bg-white rounded shadow" id="column2">
-                        <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Models</h5>
+                    <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Models</h5>
                         {selectedParent &&
                             selectedParent.models.map((model) => (
                                 <div key={model.id} className="form-check">
@@ -132,7 +132,7 @@ function TreeView() {
 
                     {/* Column 3 */}
                     <div className="col-md border  mx-2 p-2  bg-white rounded shadow" id="column3">
-                        <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Variants</h5>
+                    <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Variants</h5>
                         {selectedChild &&
                             selectedChild.variants.map((variant) => (
                                 <div key={variant.id} className="form-check">
