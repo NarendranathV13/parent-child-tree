@@ -62,19 +62,20 @@ function TreeView() {
                 const allVariantsSelected = model.variants.every((variant) => variant.isChecked);
                 const someVariantsSelected = model.variants.some((variant) => variant.isChecked);
                 model.isChecked = allVariantsSelected;
-                model.isIndeterminate = someVariantsSelected;
-
+                model.isIndeterminate = !allVariantsSelected && someVariantsSelected;
+    
                 return model;
             });
             const allModelsSelected = brand.models.every((model) => model.isChecked);
             const someModelsSelected = brand.models.some((model) => model.isChecked);
             brand.isChecked = allModelsSelected;
-            brand.isIndeterminate = someModelsSelected;
-
+            brand.isIndeterminate = !allModelsSelected && someModelsSelected;
+    
             return brand;
         });
         setTreeData(updatedTreeData);
     };
+    
     return (
         <div className="treeview">
             <div className="container">
