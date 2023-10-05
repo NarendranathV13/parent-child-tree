@@ -5,6 +5,7 @@ function TreeView() {
     const [treeData, setTreeData] = useState([]);
     const [selectedParent, setSelectedParent] = useState(null);
     const [selectedChild, setSelectedChild] = useState(null);
+    const [selectedVariant, setSelectedVariant] = useState(null); 
 
     useEffect(() => {
         const apiUrl = "/camera";
@@ -25,6 +26,9 @@ function TreeView() {
     const selectChild = (childItem) => {
         setSelectedChild(childItem);
     };
+    const selectVariant =(variantItem) =>{
+        setSelectedVariant(variantItem)
+    }
     const handleParentCheckboxChange = (parentItem) => {
         const updatedTreeData = treeData.map((brand) => {
             if (brand.id === parentItem.id) {
@@ -72,10 +76,10 @@ function TreeView() {
             <div className="container">
                 <div className="row mt-5 mx-2 p-4 bg-white border border-primary rounded shadow">
                     {/* Column 1 */}
-                    <div className="col-md mx-2 p-2 border bg-white rounded shadow" id="column1">
+                    <div className="col-md mx-2 p-3 border bg-white rounded shadow" id="column1">
                         <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Brands</h5>
                         {treeData.map((brand) => (
-                            <div key={brand.id} className="form-check">
+                            <div key={brand.id} className={`form-check ${selectedParent === brand ? ' border border-success' : ''}`}>
                                 <input
                                     type="checkbox"
                                     className="form-check-input"
@@ -88,10 +92,7 @@ function TreeView() {
                                     onChange={() => handleParentCheckboxChange(brand)}
                                 />
                                 <label
-                                    className={` form-check-label tree-text clickable ${selectedParent && selectedParent.id === brand.id
-                                        ? "selected-parent"
-                                        : ""
-                                        }`}
+                                    className={'form-check-label tree-text clickable'}
                                     onClick={() => selectParent(brand)}
                                     style={{ cursor: "pointer" }}
                                 >
@@ -106,7 +107,7 @@ function TreeView() {
                         <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Models</h5>
                         {selectedParent &&
                             selectedParent.models.map((model) => (
-                                <div key={model.id} className="form-check">
+                                <div key={model.id} className={`form-check ${selectedChild === model ? ' border border-success' : ''}`}>
                                     <input
                                         type="checkbox"
                                         className="form-check-input"
@@ -117,10 +118,7 @@ function TreeView() {
                                         onChange={() => handleChildCheckboxChange(model)}
                                     />
                                     <label
-                                        className={` form-check-label tree-text clickable ${selectedChild && selectedChild.id === model.id
-                                            ? "selected-parent"
-                                            : ""
-                                            }`}
+                                        className={'form-check-label tree-text clickable'}
                                         onClick={() => selectChild(model)}
                                         style={{ cursor: "pointer" }}
                                     >
@@ -135,7 +133,7 @@ function TreeView() {
                         <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Variants</h5>
                         {selectedChild &&
                             selectedChild.variants.map((variant) => (
-                                <div key={variant.id} className="form-check">
+                                <div key={variant.id} className={`form-check ${selectedVariant === variant ? ' border border-success' : ''}`}>
                                     <input
                                         type="checkbox"
                                         className="form-check-input"
@@ -143,7 +141,9 @@ function TreeView() {
                                         checked={variant.isChecked}
                                         onChange={() => handleChildCheckboxChange(variant)}
                                     />
-                                    <label className="form-check-label" style={{ cursor: "pointer" }}>{variant.variant_name}</label>
+                                    <label className="form-check-label"
+                                    onClick={() => selectVariant(variant)}
+                                    style={{ cursor: "pointer" }}>{variant.variant_name}</label>
                                 </div>
                             ))}
                     </div>
