@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GetAxiosData } from "../api/ApiMethods";
-import CheckBoxItems from "./CheckBoxItems";
+import CheckBoxItems from "../components/CheckBoxItems";
 
 function TreeView() {
     const [treeData, setTreeData] = useState([]);
