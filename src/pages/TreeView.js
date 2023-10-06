@@ -32,33 +32,40 @@ function TreeView() {
     }
     const handleParentCheckboxChange = (parentItem) => {
         const updatedTreeData = treeData.map((brand) => {
+            //checks all the variants
             if (brand.id === parentItem.id) {
                 brand.models.forEach((model) => {
                     model.variants.forEach((variant) => {
                         variant.isChecked = !parentItem.isChecked;
                     });
+                    //checks model
                     model.isChecked = !parentItem.isChecked;
                 });
+                //checks brand
                 brand.isChecked = !parentItem.isChecked;
             }
             return brand;
         });
-        setTreeData(updatedTreeData);
+        console.log("parent selection", updatedTreeData)
+        setTreeData(updatedTreeData);//state updated
     };
 
     const handleChildCheckboxChange = (childItem) => {
         const updatedTreeData = treeData.map((brand) => {
             brand.models.forEach((model) => {
+                //checks all the variant of selected model
                 if (model.id === childItem.id) {
                     model.variants.forEach((variant) => {
                         variant.isChecked = !childItem.isChecked;
                     });
                 }
+                //individual variant selection
                 model.variants.forEach((variant) => {
                     if (variant.id === childItem.id) {
                         variant.isChecked = !variant.isChecked;
                     }
                 });
+                //indeterminate state for model
                 const allVariantsSelected = model.variants.every((variant) => variant.isChecked);
                 const someVariantsSelected = model.variants.some((variant) => variant.isChecked);
                 model.isChecked = allVariantsSelected;
@@ -66,11 +73,13 @@ function TreeView() {
     
                 return model;
             });
+            //indeterminate state for brand
             const allModelsSelected = brand.models.every((model) => model.isChecked);
             const someModelsSelected = brand.models.some((model) => model.isChecked);
+            const someModelsIndeterminate = brand.models.some((model) => model.isIndeterminate); 
             brand.isChecked = allModelsSelected;
-            brand.isIndeterminate = !allModelsSelected && someModelsSelected;
-    
+            // if any on model indeterminate then brand also indeterminate
+            brand.isIndeterminate = someModelsIndeterminate || (!allModelsSelected && someModelsSelected); 
             return brand;
         });
         setTreeData(updatedTreeData);
