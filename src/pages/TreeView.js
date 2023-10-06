@@ -7,7 +7,7 @@ function TreeView() {
     const [selectedParent, setSelectedParent] = useState(null);
     const [selectedChild, setSelectedChild] = useState(null);
     const [selectedVariant, setSelectedVariant] = useState(null);
-
+   // api fetch 
     useEffect(() => {
         const apiUrl = "/camera";
         GetAxiosData(apiUrl)
@@ -89,7 +89,7 @@ function TreeView() {
         <div className="treeview">
             <div className="container">
                 <div className="row mt-5 mx-2 p-4 bg-white border border-primary rounded shadow">
-                    {/* Column 1 */}
+                    {/* brand Column  */}
                     <div className="col-md mx-2 p-3 border bg-white rounded shadow" id="column1">
                         <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Brands</h5>
                         {treeData.map((brand) => (
@@ -107,7 +107,7 @@ function TreeView() {
                             />
                         ))}
                     </div>
-                    {/* Column 2 */}
+                    {/* Model Column */}
                     <div className="col-md  mx-2 p-2 border bg-white rounded shadow" id="column2">
                         <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Models</h5>
                         {selectedParent &&
@@ -124,7 +124,7 @@ function TreeView() {
                                 />
                             ))}
                     </div>
-                    {/* Column 3 */}
+                    {/* Variants Column */}
                     <div className="col-md border  mx-2 p-2  bg-white rounded shadow" id="column3">
                         <h5 className=" text-center my-2 text-bg-info p-2 rounded-2">Variants</h5>
                         {selectedChild &&
